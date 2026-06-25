@@ -11,64 +11,64 @@ interface OnboardingModalProps {
   setSettings: (settings: AppSettings) => void;
 }
 
-const steps = [
-  {
-    id: 'welcome',
-    title: 'Screened.',
-    content: (
-      <p className={styles.description}>
-        The applicant tracking system is broken. It filters out the best engineers because of missing lexical density or unreadable formatting.<br/><br/>
-        We built <span className={styles.highlight}>Screened</span> to fix this. It forces you to write ATS-optimized, metric-driven bullet points and outputs clean LaTeX.
-      </p>
-    )
-  },
-  {
-    id: 'philosophy',
-    title: 'The Architecture',
-    content: (
-      <p className={styles.description}>
-        This is not a toy. Treat your resume like code.<br/><br/>
-        <span className={styles.highlight}>1. Branches:</span> Create different versions of your profile and switch instantly.<br/>
-        <span className={styles.highlight}>2. Local First:</span> Your data never leaves your browser.<br/>
-        <span className={styles.highlight}>3. Brutal ATS Parsing:</span> Real-time metric density and action verb auditing.
-      </p>
-    )
-  },
-  {
-    id: 'api',
-    title: 'Bring Your Own Key',
-    content: (
-      <>
-        <p className={styles.description}>
-          To use the AI Bullet Polisher, provide an API key. If you leave this blank, the app will try to use your local GPU via WebGPU (which requires a powerful machine).
-        </p>
-        <div className={styles.inputGroup}>
-          <label className={styles.label}>Gemini API Key (Optional)</label>
-          <input 
-            type="password" 
-            className={styles.input} 
-            placeholder="AIzaSy..." 
-            value={settings.aiApiKey || ''}
-            onChange={(e) => settings && setSettings({...settings, aiApiKey: e.target.value})}
-          />
-        </div>
-      </>
-    )
-  },
-  {
-    id: 'ready',
-    title: 'Ready.',
-    content: (
-      <p className={styles.description}>
-        No emojis. Pure utility. Matte black.<br/><br/>
-        Go build the resume that gets you hired.
-      </p>
-    )
-  }
-];
-
 export default function OnboardingModal({ completeOnboarding, settings, setSettings }: OnboardingModalProps) {
   const [currentStep, setCurrentStep] = useState(0);
+
+  const steps = [
+    {
+      id: 'welcome',
+      title: 'Screened.',
+      content: (
+        <p className={styles.description}>
+          The applicant tracking system is broken. It filters out the best engineers because of missing lexical density or unreadable formatting.<br/><br/>
+          We built <span className={styles.highlight}>Screened</span> to fix this. It forces you to write ATS-optimized, metric-driven bullet points and outputs clean LaTeX.
+        </p>
+      )
+    },
+    {
+      id: 'philosophy',
+      title: 'The Architecture',
+      content: (
+        <p className={styles.description}>
+          This is not a toy. Treat your resume like code.<br/><br/>
+          <span className={styles.highlight}>1. Branches:</span> Create different versions of your profile and switch instantly.<br/>
+          <span className={styles.highlight}>2. Local First:</span> Your data never leaves your browser.<br/>
+          <span className={styles.highlight}>3. Brutal ATS Parsing:</span> Real-time metric density and action verb auditing.
+        </p>
+      )
+    },
+    {
+      id: 'api',
+      title: 'Bring Your Own Key',
+      content: (
+        <>
+          <p className={styles.description}>
+            To use the AI Bullet Polisher, provide an API key. If you leave this blank, the app will try to use your local GPU via WebGPU (which requires a powerful machine).
+          </p>
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>Gemini API Key (Optional)</label>
+            <input 
+              type="password" 
+              className={styles.input} 
+              placeholder="AIzaSy..." 
+              value={settings.aiApiKey || ''}
+              onChange={(e) => settings && setSettings({...settings, aiApiKey: e.target.value})}
+            />
+          </div>
+        </>
+      )
+    },
+    {
+      id: 'ready',
+      title: 'Ready.',
+      content: (
+        <p className={styles.description}>
+          No emojis. Pure utility. Matte black.<br/><br/>
+          Go build the resume that gets you hired.
+        </p>
+      )
+    }
+  ];
 
   const handleNext = () => {
     if (currentStep < steps.length - 1) {

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
 import "./globals.css";
 
 const figtree = Figtree({
@@ -22,23 +23,21 @@ export default function RootLayout({
   return (
     <html lang="en" className={figtree.variable} suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var savedTheme = localStorage.getItem('novacv_theme');
-                  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                  } else {
-                    document.documentElement.setAttribute('data-theme', 'light');
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
+        <Script id="theme-script" strategy="beforeInteractive">
+          {`
+            (function() {
+              try {
+                var savedTheme = localStorage.getItem('novacv_theme');
+                var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                  document.documentElement.setAttribute('data-theme', 'light');
+                }
+              } catch (e) {}
+            })();
+          `}
+        </Script>
       </head>
       <body style={{ fontFamily: "var(--font-figtree), sans-serif" }}>
         {children}
