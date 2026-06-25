@@ -63,7 +63,6 @@ export default function OnboardingModal({ completeOnboarding, settings, setSetti
       title: 'Ready.',
       content: (
         <p className={styles.description}>
-          No emojis. Pure utility. Matte black.<br/><br/>
           Go build the resume that gets you hired.
         </p>
       )
