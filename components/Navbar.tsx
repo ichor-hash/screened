@@ -67,7 +67,6 @@ export default function Navbar({
             className={styles.branchButton} 
             onClick={() => setShowBranchDropdown(!showBranchDropdown)}
             title="Click to switch or manage resume branches"
-            disabled={isLoading}
           >
             <svg className={styles.branchIcon} width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21V10m0-7a3 3 0 110 6 3 3 0 010-6zm0 0V3"/>
@@ -149,7 +148,6 @@ export default function Navbar({
           className={`${styles.atsIndicator} ${atsPillClass} ${activeTab === 'ats' ? styles.atsActive : ''}`}
           onClick={() => setActiveTab('ats')}
           title="ATS Score - click to open detailed scanner"
-          disabled={isLoading}
         >
           <span>ATS Score:</span>
           <strong>{overallScore}</strong>
@@ -163,14 +161,14 @@ export default function Navbar({
           accept=".json" 
           onChange={handleImportJSON}
         />
-        <button className="secondary" onClick={handleImportJSONClick} title="Load backup file" disabled={isLoading}>
+        <button className="secondary" onClick={handleImportJSONClick} title="Load backup file">
           <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/>
           </svg>
           Import JSON
         </button>
         
-        <button className="secondary" onClick={handleExportJSON} title="Save backup file" disabled={isLoading}>
+        <button className="secondary" onClick={handleExportJSON} title="Save backup file">
           <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
           </svg>
@@ -178,12 +176,12 @@ export default function Navbar({
         </button>
 
         {/* Reset button */}
-        <button className="secondary" onClick={handleReset} title="Load demo template" disabled={isLoading}>
+        <button className="secondary" onClick={handleReset} title="Load demo template">
           Reset Sample
         </button>
         
         {/* Clear button */}
-        <button className="secondary" onClick={handleClear} title="Erase everything" disabled={isLoading}>
+        <button className="secondary" onClick={handleClear} title="Erase everything">
           Clear
         </button>
 

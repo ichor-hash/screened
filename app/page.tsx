@@ -128,7 +128,7 @@ export default function Home() {
           {activeTab === 'ats' ? (
             <div className={styles.atsContainer}>
               <div className={styles.backButtonRow}>
-                <button className="secondary" onClick={() => setActiveTab('personal')} disabled={!isStoreReady}>
+                <button className="secondary" onClick={() => setActiveTab('personal')}>
                   ← Back to Editor
                 </button>
               </div>
