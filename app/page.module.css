@@ -1,0 +1,427 @@
+.workspace {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  padding: 24px;
+  box-sizing: border-box;
+  gap: 24px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+  height: 60px;
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius-lg);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.textLogo {
+  font-family: var(--font-figtree), sans-serif;
+  font-size: 1.6rem;
+  font-weight: 300; /* Thin weighted logo */
+  letter-spacing: -0.8px;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navActions button {
+  padding: 8px 12px;
+  font-size: 0.8rem;
+}
+
+/* ATS Indicator Pill */
+.atsIndicator {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-primary);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.atsIndicator strong {
+  font-size: 0.85rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 800;
+  transition: all var(--transition-fast);
+}
+
+/* High Score - Solid filled badge */
+.atsPillHigh strong {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+.atsPillHigh:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+/* Medium Score - Outlined badge */
+.atsPillMedium strong {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--primary);
+}
+.atsPillMedium:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+/* Low Score - Dashed/Dotted outlined badge */
+.atsPillLow strong {
+  background-color: transparent;
+  color: var(--text-muted);
+  border: 1px dashed var(--text-muted);
+}
+.atsPillLow:hover {
+  border-color: var(--text-primary);
+  background-color: var(--primary-light);
+}
+
+.atsActive {
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+/* Theme Toggle button */
+.themeToggle {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--card-border);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.themeToggle:hover {
+  color: var(--text-primary);
+  background-color: var(--background);
+  border-color: var(--text-light);
+}
+
+/* Main Layout Grid */
+.mainGrid {
+  display: grid;
+  grid-template-columns: minmax(450px, 4.5fr) minmax(500px, 5.5fr);
+  gap: 24px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.leftPane {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius-lg);
+}
+
+.rightPane {
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius-lg);
+}
+
+/* ATS Details view back button */
+.atsContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.backButtonRow {
+  padding: 12px 24px 0 24px;
+  background-color: var(--card-bg);
+  border-bottom: none;
+}
+
+.backButtonRow button {
+  padding: 6px 12px;
+  font-size: 0.75rem;
+}
+
+/* Loading state styles */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 16px;
+  background-color: var(--background);
+  color: var(--text-muted);
+  font-family: var(--font-figtree), sans-serif;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--card-border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 1024px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+  
+  .leftPane, .rightPane {
+    height: auto;
+    overflow: visible;
+  }
+
+  .rightPane {
+    border-top: 1px solid var(--card-border);
+    min-height: 80vh;
+  }
+  
+  .workspace {
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    height: auto;
+    padding: 12px;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  
+  .brand {
+    justify-content: center;
+  }
+
+  .navActions {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* Branch Switcher styling */
+.brandSlash {
+  margin: 0 12px;
+  color: var(--text-muted);
+  font-weight: 300;
+  font-size: 1.4rem;
+}
+
+.branchSwitcherContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.branchButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--background);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-weight: 500;
+}
+
+.branchButton:hover {
+  background-color: var(--card-border);
+  border-color: var(--text-muted);
+}
+
+.branchIcon {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.branchName {
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdownArrow {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.branchDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 260px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dropdownHeader {
+  padding: 10px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--card-border);
+  background-color: var(--background);
+}
+
+.dropdownList {
+  max-height: 240px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px 8px 14px;
+  border-bottom: 1px solid var(--card-border);
+  transition: background-color var(--transition-fast);
+}
+
+.dropdownItem:hover {
+  background-color: var(--background);
+}
+
+.dropdownItemActive {
+  background-color: var(--primary-light);
+}
+
+.dropdownItemActive .itemBranchName {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.switchButton {
+  flex: 1;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font-family: inherit;
+}
+
+.itemBranchName {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.itemBranchDate {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.itemActions {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.itemActions button {
+  background: transparent !important;
+  border: none !important;
+  padding: 4px !important;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast);
+}
+
+.itemActions button:hover {
+  background-color: var(--card-border) !important;
+}
+
+.deleteBranchBtn:hover {
+  background-color: #fee2e2 !important;
+  color: #ef4444 !important;
+}
+
+[data-theme='dark'] .deleteBranchBtn:hover {
+  background-color: #450a0a !important;
+  color: #fca5a5 !important;
+}
+
+.dropdownFooter {
+  padding: 10px;
+  border-top: 1px solid var(--card-border);
+  background-color: var(--background);
+  display: flex;
+  justify-content: center;
+}
+
+.createBranchBtn {
+  width: 100%;
+  padding: 8px !important;
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+  border-radius: 20px !important;
+  background-color: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+  border: none !important;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.createBranchBtn:hover {
+  opacity: 0.9;
+}
+

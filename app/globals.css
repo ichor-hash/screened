@@ -1,0 +1,320 @@
+:root {
+  /* Colors - Light Theme (Flat Monochrome) */
+  --background: #f4f4f5;      /* Tier 1: Canvas Background */
+  --foreground: #121212;
+  
+  --card-bg: #ffffff;         /* Tier 2: Card Component Background */
+  --card-border: transparent; /* No divider lines */
+  
+  --primary: #121212;
+  --primary-hover: #27272a;
+  
+  /* Tier 3: flat button/box shades */
+  --primary-light: #e4e4e7;
+  --primary-light-hover: #d4d4d8;
+  --primary-foreground: #ffffff;
+  
+  --text-primary: #121212;
+  --text-muted: #71717a;
+  --text-light: #a1a1aa;
+  
+  /* Status indicators in grayscale */
+  --success: #121212;
+  --success-light: #e4e4e7;
+  --warning: #71717a;
+  --warning-light: #fafafa;
+  --danger: #a1a1aa;
+  --danger-light: #fafafa;
+  
+  --border-radius-sm: 6px;
+  --border-radius-md: 10px;
+  --border-radius-lg: 14px;
+  
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  
+  --font-fallback: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  
+  --transition-fast: 0.12s ease;
+  --transition-normal: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+  /* Colors - Dark Theme (Matte Black / Space Gray Flat) */
+  --background: #09090b;      /* Tier 1: Canvas Background (Matte Black) */
+  --foreground: #f5f5f7;      /* Light silver foreground */
+  
+  --card-bg: #18181b;         /* Tier 2: Card Component Background (Space Gray) */
+  --card-border: transparent; /* No divider lines */
+  
+  --primary: #ffffff;         /* High contrast white elements */
+  --primary-hover: #e5e5e7;
+  
+  /* Tier 3: flat button/box shades */
+  --primary-light: #27272a;
+  --primary-light-hover: #3f3f46;
+  --primary-foreground: #121214;
+  
+  --text-primary: #f5f5f7;
+  --text-muted: #8e8e93;      /* Gray text */
+  --text-light: #48484a;      /* Dark gray details */
+  
+  /* Status indicators in grayscale */
+  --success: #ffffff;
+  --success-light: #27272a;
+  --warning: #8e8e93;
+  --warning-light: #18181b;
+  --danger: #48484a;
+  --danger-light: #18181b;
+  
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-figtree, var(--font-fallback));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Custom Scrollbar for sleek UI */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-light);
+}
+
+/* Clean Input Styles */
+input, select, textarea {
+  font-family: inherit;
+  font-size: 0.95rem;
+  background-color: var(--primary-light); /* Tier 3: input boxes background */
+  color: var(--text-primary);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius-sm);
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Modern clean buttons */
+button {
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 24px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+  color: inherit; /* Fix: Inherit text color by default */
+}
+
+button.primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+button.primary:hover {
+  background-color: var(--primary-hover);
+}
+
+button.secondary {
+  background-color: var(--primary-light);
+  color: var(--text-primary);
+  border: none;
+}
+
+button.secondary:hover {
+  background-color: var(--primary-light-hover);
+}
+
+button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Utility Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn var(--transition-normal) forwards;
+}
+
+/* Skeleton Preloader Utilities */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--card-border) 25%,
+    var(--background) 50%,
+    var(--card-border) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite linear;
+  border-radius: var(--border-radius-sm);
+  display: block;
+}
+
+.skeletonText {
+  height: 12px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.skeletonTitle {
+  height: 20px;
+  margin-bottom: 12px;
+  width: 40%;
+}
+
+.skeletonButton {
+  height: 36px;
+  width: 100px;
+}
+
+.skeletonInput {
+  height: 40px;
+  width: 100%;
+}
+
+.skeletonCircle {
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+}
+
+/* Print Styles for PDF Export */
+@media print {
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Hide UI elements, sidebar, and nav actions */
+  button,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Expand main layout to full width */
+  main,
+  [class*="page_mainGrid"],
+  [class*="page_workspace"] {
+    display: block !important;
+    height: auto !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  .resume-print-panel {
+    background: #ffffff !important;
+    height: auto !important;
+    overflow: visible !important;
+    width: 100% !important;
+    display: block !important;
+  }
+
+  .resume-print-content {
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
+  .resume-print-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Reset resume paper to print dimensions and remove rounded corners */
+  .resume-print-paper {
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    aspect-ratio: auto !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+    line-height: 1.35 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: visible !important;
+  }
+}

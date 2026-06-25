@@ -1,0 +1,460 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  height: 100%;
+  overflow-y: auto;
+  padding: 32px;
+  background-color: var(--card-bg);
+  animation: fadeIn var(--transition-fast) forwards;
+}
+
+.header {
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 12px;
+}
+
+.header h3 {
+  font-family: var(--font-figtree), sans-serif;
+  font-size: 1.25rem;
+  font-weight: 400; /* Minimal light weighting */
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
+.header p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* --- SCORE GAUGE --- */
+.scoreGauge {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  background-color: var(--primary-light);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius-md);
+  padding: 28px;
+  backdrop-filter: blur(10px);
+}
+
+@media (max-width: 480px) {
+  .scoreGauge {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.svgWrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+}
+
+.circleBg {
+  stroke-width: 6px;
+}
+
+.circleProgress {
+  stroke-width: 6px;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  stroke-linecap: round;
+}
+
+.scoreText {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scoreValue {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.scoreLabel {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+@media (max-width: 480px) {
+  .summary {
+    align-items: center;
+  }
+}
+
+.badgeSuccess {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--primary-foreground);
+  background-color: var(--primary);
+  padding: 4px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badgeWarning {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  padding: 3px 9px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badgeDanger {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background-color: transparent;
+  border: 1px dashed var(--text-light);
+  padding: 3px 9px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.scoreDescription {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.subtabs {
+  display: flex;
+  background-color: var(--primary-light);
+  border-radius: 20px; /* Rounded pill container */
+  padding: 6px;
+  gap: 6px;
+}
+
+.subtab {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: 16px; /* Rounded pills */
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.subtab:not(.subtabActive):hover {
+  color: var(--text-primary);
+  background-color: var(--primary-light);
+}
+
+.subtabActive {
+  background-color: var(--primary);
+  color: var(--primary-foreground) !important;
+}
+
+.tabContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.tabPane {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* --- CARDS --- */
+.card {
+  background-color: var(--primary-light);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.cardDesc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* --- SYNOPSIS GRID --- */
+.synopsisGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  text-align: center;
+}
+
+.synopsisItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius-sm);
+  padding: 18px 12px;
+}
+
+.synopsisLabel {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.synopsisValue {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+/* --- DATA ID MAP --- */
+.identificationMap {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+}
+
+.dataIdRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+}
+
+.dataIdRow:not(:last-child) {
+  border-bottom: 1px solid var(--card-border);
+}
+
+.badgePass {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  background-color: var(--primary-light);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.badgeFail {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-light);
+  border: 1px dashed var(--text-light);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* --- KEYWORD PILLS --- */
+.keywordContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.keywordPillMatched {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background-color: var(--primary-light);
+  border: 1px solid var(--card-border);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.keywordPillMissing {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background-color: transparent;
+  border: 1px dashed var(--card-border);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.warningText {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  font-style: italic;
+}
+
+/* --- CHECKLIST AUDIT --- */
+.checkerMetrics {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkerMetrics h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.metricsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metricRowContainer {
+  background-color: var(--primary-light);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+}
+
+.metricHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.metricNameGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bulletPass {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--primary-foreground);
+  background-color: var(--primary);
+  border-radius: 50%;
+}
+
+.bulletFail {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  border: 1px dashed var(--text-light);
+  border-radius: 50%;
+}
+
+.metricName {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.metricScore {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.suggestionsBox {
+  border-top: 1px dashed var(--card-border);
+  background-color: rgba(255, 255, 255, 0.01);
+  padding: 12px 16px;
+  overflow: hidden;
+}
+
+.suggestionsBox ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0;
+  margin: 0;
+}
+
+.suggestionsBox li {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  position: relative;
+  padding-left: 12px;
+}
+
+.suggestionsBox li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--text-light);
+  font-weight: bold;
+}
+
+/* --- KEYWORD INPUT --- */
+.keywordInputText {
+  width: 100%;
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius-sm);
+  padding: 10px 12px;
+  outline: none;
+}
+
+.keywordInputText:focus {
+  border-color: var(--primary);
+}
+
+.semanticScoreHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,291 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--card-bg);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  background-color: var(--card-bg);
+  min-height: 70px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.toggleButtons {
+  display: flex;
+  background-color: var(--primary-light);
+  border-radius: 20px; /* Rounded pill container */
+  padding: 3px;
+}
+
+.toggleButton {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 18px; /* Rounded pills */
+  background: transparent;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.toggleButton:not(.active):hover {
+  color: var(--text-primary);
+  background-color: var(--primary-light-hover);
+}
+
+.toggleButton.active {
+  background-color: transparent !important;
+  color: var(--primary-foreground) !important;
+}
+
+.toggleIndicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--primary);
+  border-radius: 18px;
+  z-index: 1;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions button {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* --- PAPER CONTAINER --- */
+.paperContainer {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+}
+
+.resumePaper {
+  width: 100%;
+  aspect-ratio: 0.7727; /* Letter size (8.5 / 11) */
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  color: #1f2937; /* Consistent dark text in preview */
+  padding: 40px 50px;
+  font-family: 'Times New Roman', Times, serif; /* LaTeX default appearance */
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+[data-theme="dark"] .resumePaper {
+  border-color: #374151;
+  /* Keep the paper white and text dark, just like a real PDF would print */
+  background-color: #ffffff;
+  color: #111827;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Resume Styling inside Paper */
+.resumeHeader {
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  color: #111827;
+}
+
+.title {
+  font-size: 13px;
+  font-style: italic;
+  color: #4b5563;
+  margin-bottom: 6px;
+}
+
+.contacts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 8px;
+  font-size: 11px;
+  color: #374151;
+}
+
+.contacts span {
+  text-decoration: none;
+  color: #374151;
+  transition: color var(--transition-fast);
+}
+
+.contacts span:not(:last-child)::after, 
+.contacts a:not(:last-child)::after {
+  content: " |";
+  margin-left: 8px;
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+/* Sections */
+.resumeSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sectionTitle {
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-bottom: 1px solid #111827;
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+  letter-spacing: 0.5px;
+  color: #111827;
+}
+
+.subheadingList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subheadingBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.subheadingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.boldText {
+  font-weight: bold;
+}
+
+.regularText {
+  font-weight: normal;
+}
+
+.italicText {
+  font-style: italic;
+}
+
+.techText {
+  font-style: italic;
+  font-size: 12px;
+  color: #374151;
+}
+
+.linkText {
+  font-size: 11px;
+  color: #111827;
+  text-decoration: underline;
+}
+
+.linkText:hover {
+  color: #000000;
+}
+
+.detailsBlock {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  color: #374151;
+  padding-left: 10px;
+}
+
+.bulletSymbol {
+  color: #4b5563;
+}
+
+.detailsText {
+  font-style: italic;
+}
+
+.bulletPoints {
+  margin: 4px 0 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  list-style-type: disc;
+}
+
+.bulletPoints li {
+  font-size: 12px;
+  color: #374151;
+  line-height: 1.35;
+}
+
+/* Skills */
+.skillsBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skillRow {
+  font-size: 12px;
+}
+
+/* --- LATEX PRE CONTAINER --- */
+.latexContainer {
+  width: 100%;
+  max-width: 800px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.latexPre {
+  padding: 20px;
+  margin: 0;
+  overflow: auto;
+  max-height: 70vh;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background-color: var(--primary-light);
+  text-align: left;
+}
+
+.latexPre code {
+  white-space: pre-wrap;
+  word-break: break-all;
+}

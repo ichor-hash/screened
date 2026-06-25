@@ -1,0 +1,316 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--card-bg);
+  overflow: hidden;
+}
+
+.tabs {
+  display: flex;
+  background-color: var(--card-bg);
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  padding: 20px 24px 14px 24px;
+  gap: 8px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.tabs::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.tab {
+  padding: 8px 16px;
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  border-radius: 20px; /* Rounded pill style tabs */
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.tab:not(.activeTab):hover {
+  color: var(--text-primary);
+  background-color: var(--primary-light);
+}
+
+.activeTab {
+  color: var(--primary-foreground) !important;
+  background-color: transparent !important;
+}
+
+.tabIndicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--primary);
+  border-radius: 20px;
+  z-index: 1;
+}
+
+.formContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px;
+}
+
+.formSection {
+  animation: fadeIn var(--transition-fast) forwards;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 12px;
+  margin-bottom: 8px;
+}
+
+.sectionHeader h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemCard {
+  background-color: var(--primary-light);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.itemCard:hover {
+  border-color: var(--text-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed var(--card-border);
+  padding-bottom: 10px;
+}
+
+.cardHeader h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.cardActions {
+  display: flex;
+  gap: 6px;
+}
+
+.cardActions button {
+  padding: 6px 10px;
+  font-size: 0.8rem;
+}
+
+.deleteButton {
+  background-color: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--card-border);
+}
+
+.deleteButton:hover {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+.bulletSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+  border-top: 1px solid var(--card-border);
+  padding-top: 14px;
+}
+
+.bulletHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.bulletHeader label {
+  margin-bottom: 0;
+}
+
+.bulletHeader button {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}
+
+.bulletItem {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.bulletIndex {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+
+.bulletItem textarea {
+  flex: 1;
+  resize: vertical;
+  min-height: 52px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.bulletDelete {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--card-bg);
+  color: var(--text-muted);
+  border: 1px solid var(--card-border);
+  border-radius: 50%;
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.bulletDelete:hover {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+.emptyText {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 40px 20px;
+  background-color: var(--primary-light);
+  border: 1px dashed var(--card-border);
+  border-radius: var(--border-radius-md);
+}
+
+/* --- SETTINGS / INTEGRATIONS --- */
+.experimentalBadge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  border: 1px solid var(--card-border);
+  padding: 2px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.settingsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 8px;
+}
+
+.settingsCard {
+  background-color: var(--primary-light);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settingsCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settingsCardHeader h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.settingsDesc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Override inputs nested in Tier 3 boxes to stand out with Tier 2 background */
+.itemCard input,
+.itemCard textarea,
+.itemCard select,
+.settingsCard input,
+.settingsCard textarea,
+.settingsCard select {
+  background-color: var(--card-bg);
+}
+
+.bulletAiButton {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--card-bg);
+  color: var(--text-muted);
+  border: 1px solid var(--card-border);
+  border-radius: 50%;
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.bulletAiButton:hover {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
