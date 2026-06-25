@@ -114,12 +114,11 @@ export function useResumeStore() {
     setVersions(prev => prev.map(v => v.id === activeVersionId ? { ...v, data: newData, updatedAt: Date.now() } : v));
   };
 
-  const handleCreateBranch = (name: string) => {
+  const handleCreateBranch = (name: string): { error?: string } => {
     const cleanName = name.trim().toLowerCase().replace(/\s+/g, '-');
-    if (!cleanName) return;
+    if (!cleanName) return { error: 'Invalid branch name.' };
     if (versions.some(v => v.name === cleanName)) {
-      alert('A branch with this name already exists.');
-      return;
+      return { error: 'A branch with this name already exists.' };
     }
     const newBranch: ResumeVersion = {
       id: `v-${Date.now()}`,
@@ -130,28 +129,27 @@ export function useResumeStore() {
     };
     setVersions(prev => [...prev, newBranch]);
     setActiveVersionId(newBranch.id);
+    return {};
   };
 
-  const handleRenameBranch = (id: string, newName: string) => {
+  const handleRenameBranch = (id: string, newName: string): { error?: string } => {
     const cleanName = newName.trim().toLowerCase().replace(/\s+/g, '-');
-    if (!cleanName) return;
+    if (!cleanName) return { error: 'Invalid branch name.' };
     if (versions.some(v => v.id !== id && v.name === cleanName)) {
-      alert('A branch with this name already exists.');
-      return;
+      return { error: 'A branch with this name already exists.' };
     }
     setVersions(prev => prev.map(v => v.id === id ? { ...v, name: cleanName, updatedAt: Date.now() } : v));
+    return {};
   };
 
-  const handleDeleteBranch = (id: string) => {
+  const handleDeleteBranch = (id: string): { error?: string } => {
     if (versions.length <= 1) {
-      alert('Cannot delete the last remaining branch.');
-      return;
+      return { error: 'Cannot delete the last remaining branch.' };
     }
-    if (window.confirm('Are you sure you want to delete this branch?')) {
-      const remaining = versions.filter(v => v.id !== id);
-      setVersions(remaining);
-      if (activeVersionId === id) setActiveVersionId(remaining[0].id);
-    }
+    const remaining = versions.filter(v => v.id !== id);
+    setVersions(remaining);
+    if (activeVersionId === id) setActiveVersionId(remaining[0].id);
+    return {};
   };
 
   const handleThemeToggle = () => {

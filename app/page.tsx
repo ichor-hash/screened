@@ -9,6 +9,7 @@ import PreviewPanel from '../components/PreviewPanel';
 import AtsPanel from '../components/AtsPanel';
 import Navbar from '../components/Navbar';
 import OnboardingModal from '../components/OnboardingModal';
+import CustomModal, { ModalState } from '../components/CustomModal';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -34,33 +35,74 @@ export default function Home() {
     completeOnboarding
   } = useResumeStore();
 
+  const [modal, setModal] = useState<ModalState & { onConfirm: (val?: string) => void, onCancel: () => void }>({
+    isOpen: false,
+    type: 'alert',
+    title: '',
+    message: '',
+    onConfirm: () => {},
+    onCancel: () => {}
+  });
+
+  const closeModal = () => setModal(prev => ({ ...prev, isOpen: false }));
+
+  const showAlert = (title: string, message: string, isDanger = false) => {
+    setModal({
+      isOpen: true,
+      type: 'alert',
+      title,
+      message,
+      isDanger,
+      onConfirm: closeModal,
+      onCancel: closeModal
+    });
+  };
+
   const handleReset = () => {
-    if (window.confirm('Are you sure you want to reset your resume to the sample data? This will overwrite your current changes.')) {
-      handleDataChange(defaultResumeData);
-      setActiveTab('personal');
-    }
+    setModal({
+      isOpen: true,
+      type: 'confirm',
+      title: 'Reset to Sample Data',
+      message: 'Are you sure you want to reset your resume to the sample data? This will overwrite your current changes.',
+      isDanger: true,
+      onConfirm: () => {
+        handleDataChange(defaultResumeData);
+        setActiveTab('personal');
+        closeModal();
+      },
+      onCancel: closeModal
+    });
   };
 
   const handleClear = () => {
-    if (window.confirm('Are you sure you want to clear all data on this branch? This will erase your current resume content.')) {
-      handleDataChange({
-        personalInfo: {
-          fullName: '',
-          jobTitle: '',
-          email: '',
-          phone: '',
-          location: '',
-          website: '',
-          linkedin: '',
-          github: '',
-        },
-        experience: [],
-        education: [],
-        projects: [],
-        skills: [],
-      });
-      setActiveTab('personal');
-    }
+    setModal({
+      isOpen: true,
+      type: 'confirm',
+      title: 'Clear Resume Data',
+      message: 'Are you sure you want to clear all data on this branch? This will erase your current resume content.',
+      isDanger: true,
+      onConfirm: () => {
+        handleDataChange({
+          personalInfo: {
+            fullName: '',
+            jobTitle: '',
+            email: '',
+            phone: '',
+            location: '',
+            website: '',
+            linkedin: '',
+            github: '',
+          },
+          experience: [],
+          education: [],
+          projects: [],
+          skills: [],
+        });
+        setActiveTab('personal');
+        closeModal();
+      },
+      onCancel: closeModal
+    });
   };
 
   const handleExportJSON = () => {
@@ -88,12 +130,12 @@ export default function Home() {
         const parsed = JSON.parse(event.target?.result as string);
         if (parsed.personalInfo) {
           handleDataChange(parsed);
-          alert('Resume JSON imported successfully into the active branch!');
+          showAlert('Success', 'Resume JSON imported successfully into the active branch!');
         } else {
-          alert('Invalid file format: Make sure the JSON has the correct resume data structure.');
+          showAlert('Invalid Format', 'Make sure the JSON has the correct resume data structure.', true);
         }
       } catch (err) {
-        alert('Failed to parse JSON file.');
+        showAlert('Parse Error', 'Failed to parse JSON file.', true);
       }
     };
     fileReader.readAsText(files[0]);
@@ -169,6 +211,9 @@ export default function Home() {
           setSettings={setSettings} 
         />
       )}
+
+      {/* Global Modals */}
+      <CustomModal {...modal} onCancel={closeModal} />
     </div>
   );
 }

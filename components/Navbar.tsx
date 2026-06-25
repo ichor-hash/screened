@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { ResumeVersion } from '../lib/types';
+import CustomModal, { ModalState } from './CustomModal';
+import { Pencil, Trash2 } from 'lucide-react';
 import styles from '../app/page.module.css';
 
 interface NavbarProps {
@@ -7,9 +9,9 @@ interface NavbarProps {
   activeVersion: ResumeVersion | undefined;
   activeVersionId: string;
   setActiveVersionId: (id: string) => void;
-  handleCreateBranch: (name: string) => void;
-  handleRenameBranch: (id: string, newName: string) => void;
-  handleDeleteBranch: (id: string) => void;
+  handleCreateBranch: (name: string) => { error?: string };
+  handleRenameBranch: (id: string, newName: string) => { error?: string };
+  handleDeleteBranch: (id: string) => { error?: string };
   overallScore: number;
   activeTab: string;
   setActiveTab: (tab: string) => void;
@@ -44,6 +46,82 @@ export default function Navbar({
   const [showBranchDropdown, setShowBranchDropdown] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Modal State
+  const [modal, setModal] = useState<ModalState & { onConfirm: (val?: string) => void, onCancel: () => void }>({
+    isOpen: false,
+    type: 'alert',
+    title: '',
+    message: '',
+    onConfirm: () => {},
+    onCancel: () => {}
+  });
+
+  const closeModal = () => setModal(prev => ({ ...prev, isOpen: false }));
+
+  const showError = (error: string) => {
+    setModal({
+      isOpen: true,
+      type: 'alert',
+      title: 'Error',
+      message: error,
+      isDanger: true,
+      onConfirm: closeModal,
+      onCancel: closeModal
+    });
+  };
+
+  const promptRenameBranch = (v: ResumeVersion) => {
+    setModal({
+      isOpen: true,
+      type: 'prompt',
+      title: 'Rename Branch',
+      message: 'Enter new branch name:',
+      defaultValue: v.name,
+      onConfirm: (newName) => {
+        if (newName) {
+          const res = handleRenameBranch(v.id, newName);
+          if (res?.error) return showError(res.error);
+        }
+        closeModal();
+      },
+      onCancel: closeModal
+    });
+  };
+
+  const confirmDeleteBranch = (id: string) => {
+    setModal({
+      isOpen: true,
+      type: 'confirm',
+      title: 'Delete Branch',
+      message: 'Are you sure you want to delete this branch? This cannot be undone.',
+      isDanger: true,
+      onConfirm: () => {
+        const res = handleDeleteBranch(id);
+        if (res?.error) return showError(res.error);
+        closeModal();
+      },
+      onCancel: closeModal
+    });
+  };
+
+  const promptCreateBranch = () => {
+    setModal({
+      isOpen: true,
+      type: 'prompt',
+      title: 'Create Branch',
+      message: 'Enter new branch name (e.g. google-swe):',
+      onConfirm: (name) => {
+        if (name) {
+          const res = handleCreateBranch(name);
+          if (res?.error) return showError(res.error);
+          setShowBranchDropdown(false);
+        }
+        closeModal();
+      },
+      onCancel: closeModal
+    });
+  };
+
   const handleImportJSONClick = () => {
     fileInputRef.current?.click();
   };
@@ -56,90 +134,84 @@ export default function Navbar({
   }
 
   return (
-    <header className={`${styles.navbar} no-print`}>
-      <div className={styles.brand}>
-        <h1 className={styles.textLogo}>Screened.</h1>
-        <span className={styles.brandSlash}>/</span>
-        
-        {/* Git Branch Switcher Dropdown */}
-        <div className={styles.branchSwitcherContainer}>
-          <button 
-            className={styles.branchButton} 
-            onClick={() => setShowBranchDropdown(!showBranchDropdown)}
-            title="Click to switch or manage resume branches"
-          >
-            <svg className={styles.branchIcon} width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21V10m0-7a3 3 0 110 6 3 3 0 010-6zm0 0V3"/>
-            </svg>
-            <span className={styles.branchName}>{activeVersion ? activeVersion.name : 'main'}</span>
-            <svg className={styles.dropdownArrow} width="10" height="10" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-          </button>
+    <>
+      <header className={`${styles.navbar} no-print`}>
+        <div className={styles.brand}>
+          <h1 className={styles.textLogo}>Screened.</h1>
+          <span className={styles.brandSlash}>/</span>
           
-          {showBranchDropdown && (
-            <div className={styles.branchDropdown}>
-              <div className={styles.dropdownHeader}>
-                <span>Resume Branches</span>
-              </div>
-              <div className={styles.dropdownList}>
-                {versions.map(v => (
-                  <div 
-                    key={v.id} 
-                    className={`${styles.dropdownItem} ${v.id === activeVersionId ? styles.dropdownItemActive : ''}`}
-                  >
-                    <button 
-                      className={styles.switchButton}
-                      onClick={() => {
-                        setActiveVersionId(v.id);
-                        setShowBranchDropdown(false);
-                      }}
+          {/* Git Branch Switcher Dropdown */}
+          <div className={styles.branchSwitcherContainer}>
+            <button 
+              className={styles.branchButton} 
+              onClick={() => setShowBranchDropdown(!showBranchDropdown)}
+              title="Click to switch or manage resume branches"
+            >
+              <svg className={styles.branchIcon} width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21V10m0-7a3 3 0 110 6 3 3 0 010-6zm0 0V3"/>
+              </svg>
+              <span className={styles.branchName}>{activeVersion ? activeVersion.name : 'main'}</span>
+              <svg className={styles.dropdownArrow} width="10" height="10" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </button>
+            
+            {showBranchDropdown && (
+              <div className={styles.branchDropdown}>
+                <div className={styles.dropdownHeader}>
+                  <span>Resume Branches</span>
+                </div>
+                <div className={styles.dropdownList}>
+                  {versions.map(v => (
+                    <div 
+                      key={v.id} 
+                      className={`${styles.dropdownItem} ${v.id === activeVersionId ? styles.dropdownItemActive : ''}`}
                     >
-                      <span className={styles.itemBranchName}>{v.name}</span>
-                      <span className={styles.itemBranchDate}>
-                        Updated {new Date(v.updatedAt).toLocaleDateString(undefined, {month: 'short', day: 'numeric'})}
-                      </span>
-                    </button>
-                    
-                    <div className={styles.itemActions}>
                       <button 
+                        className={styles.switchButton}
                         onClick={() => {
-                          const newName = prompt('Enter new branch name:', v.name);
-                          if (newName) handleRenameBranch(v.id, newName);
+                          setActiveVersionId(v.id);
+                          setShowBranchDropdown(false);
                         }}
-                        title="Rename Branch"
                       >
-                        ✏️
+                        <span className={styles.itemBranchName}>{v.name}</span>
+                        <span className={styles.itemBranchDate}>
+                          Updated {new Date(v.updatedAt).toLocaleDateString(undefined, {month: 'short', day: 'numeric'})}
+                        </span>
                       </button>
-                      {versions.length > 1 && (
+                      
+                      <div className={styles.itemActions}>
                         <button 
-                          onClick={() => handleDeleteBranch(v.id)}
-                          title="Delete Branch"
-                          className={styles.deleteBranchBtn}
+                          onClick={() => promptRenameBranch(v)}
+                          title="Rename Branch"
                         >
-                          🗑️
+                          <Pencil size={14} />
                         </button>
-                      )}
+                        {versions.length > 1 && (
+                          <button 
+                            onClick={() => confirmDeleteBranch(v.id)}
+                            title="Delete Branch"
+                            className={styles.deleteBranchBtn}
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+                <div className={styles.dropdownFooter}>
+                  <button 
+                    className={styles.createBranchBtn}
+                    onClick={promptCreateBranch}
+                  >
+                    + Create Branch
+                  </button>
+                </div>
               </div>
-              <div className={styles.dropdownFooter}>
-                <button 
-                  className={styles.createBranchBtn}
-                  onClick={() => {
-                    const name = prompt('Enter new branch name (e.g. google-swe):');
-                    if (name) handleCreateBranch(name);
-                    setShowBranchDropdown(false);
-                  }}
-                >
-                  + Create Branch
-                </button>
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </div>
 
       {/* Global Control Tools */}
       <div className={styles.navActions}>
@@ -201,5 +273,7 @@ export default function Navbar({
         </button>
       </div>
     </header>
+    <CustomModal {...modal} onCancel={closeModal} />
+    </>
   );
 }
