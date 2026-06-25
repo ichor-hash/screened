@@ -14,6 +14,7 @@ export function useResumeStore() {
     aiProvider: 'gemini',
   });
   const [isStoreReady, setIsStoreReady] = useState<boolean>(false);
+  const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState<boolean>(true);
 
   // Derive active data
   const activeVersion = versions.find((v) => v.id === activeVersionId) || versions[0];
@@ -37,7 +38,14 @@ export function useResumeStore() {
     // 3. Data & Versions Hydration
     const savedVersions = localStorage.getItem('novacv_versions');
     const savedActiveId = localStorage.getItem('novacv_active_version_id');
+    const onboarded = localStorage.getItem('screened_onboarded');
     
+    if (onboarded === 'true') {
+      setHasCompletedOnboarding(true);
+    } else {
+      setHasCompletedOnboarding(false);
+    }
+
     let loadedVersions: ResumeVersion[] = [];
     let loadedActiveId = 'v-main';
 
@@ -168,5 +176,10 @@ export function useResumeStore() {
     handleThemeToggle,
     settings,
     setSettings,
+    hasCompletedOnboarding,
+    completeOnboarding: () => {
+      setHasCompletedOnboarding(true);
+      localStorage.setItem('screened_onboarded', 'true');
+    }
   };
 }

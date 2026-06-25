@@ -8,6 +8,7 @@ import EditorPanel from '../components/EditorPanel';
 import PreviewPanel from '../components/PreviewPanel';
 import AtsPanel from '../components/AtsPanel';
 import Navbar from '../components/Navbar';
+import OnboardingModal from '../components/OnboardingModal';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -29,6 +30,8 @@ export default function Home() {
     handleThemeToggle,
     settings,
     setSettings,
+    hasCompletedOnboarding,
+    completeOnboarding
   } = useResumeStore();
 
   const handleReset = () => {
@@ -157,6 +160,15 @@ export default function Home() {
           />
         </section>
       </main>
+
+      {/* Onboarding Wizard */}
+      {isStoreReady && !hasCompletedOnboarding && (
+        <OnboardingModal 
+          completeOnboarding={completeOnboarding} 
+          settings={settings} 
+          setSettings={setSettings} 
+        />
+      )}
     </div>
   );
 }

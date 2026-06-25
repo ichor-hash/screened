@@ -10,7 +10,7 @@ const figtree = Figtree({
 });
 
 export const metadata: Metadata = {
-  title: "Screened. | Professional LaTeX Resume Builder & ATS Scorer",
+  title: "Screened.",
   description: "Create ATS-friendly resumes without writing LaTeX code. Fill options, preview instantly, check ATS scores, and export compilation-ready LaTeX source for Overleaf.",
 };
 
