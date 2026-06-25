@@ -28,10 +28,12 @@
 
 .content {
   padding: 2.5rem;
-  min-height: 320px;
+  height: 340px; /* Fixed height instead of min-height to prevent layout thrashing */
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .title {
