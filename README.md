@@ -13,11 +13,9 @@ This is not a wrapper. It is a fully client-side web application built with a fo
 - **Local WebGPU AI**: Integrates `@mlc-ai/web-llm` to run Qwen2.5 directly in the browser. Zero server-side tracking. Data never leaves the client.
 - **Lexical ATS Engine**: Implements the exact syntactic and keyword-density algorithms used by Workday, Taleo, and Greenhouse. It audits action verbs, metric density, and structural completeness in real time.
 - **Branch Version Control**: A Git-style branching system for resumes. It allows parallel tracking of different professional profiles stored securely in local browser storage.
-- **Spartan Engineering**: Built on the Next.js App Router. Fully modular component architecture. Pure matte-black aesthetics. No bloat. No emojis. Just pure utility.
+- 
+## Why This Matters
 
-## Why This Matters (For Recruiters & Hiring Managers)
-
-If you are evaluating my profile, this repository demonstrates my core engineering philosophy:
 1. **Identify real bottlenecks.** (Qualified engineers failing automated screens).
 2. **Build robust, scalable solutions.** (A Next.js platform that leverages edge AI and complex state management).
 3. **Execute with precision.** (A flawless, highly responsive UI).
